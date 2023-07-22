@@ -33,11 +33,11 @@ storageRoutes.get(storageUrl, (req, res) => {
     let existingDataCollection = getData(storagePath);
     // get the existing data-set fot the specific type
     let existingCollectionTypeData = [...existingDataCollection[type]];
-    // filter query
-    const query = q.toLowerCase().replaceAll(" ", "");
 
     // search filter implementation based on query
     if (q) {
+        // filter query
+        const query = q.toLowerCase().replaceAll(" ", "");
         // get the data-object related to the specified type
         existingCollectionTypeData = existingCollectionTypeData.filter(element => element.name.replaceAll(" ", "").toLowerCase().includes(query));
     }
