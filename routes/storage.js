@@ -28,16 +28,19 @@ storageRoutes.post(storageUrl, (req, res) => {
 })
 
 storageRoutes.get(storageUrl, (req, res) => {
-    const { q, type } = req.query;
+    const { quer, type } = req.query;
     // get existing data collection// fetch the collection from the storage related to the products
     let existingDataCollection = getData(storagePath);
     // get the existing data-set fot the specific type
     let existingCollectionTypeData = [...existingDataCollection[type]];
 
+    console.log("quer", quer, type);
+
     // search filter implementation based on query
-    if (q) {
+    if (quer) {
         // filter query
-        const query = q.toLowerCase().replaceAll(" ", "");
+        const query = quer.toLowerCase().replaceAll(" ", "");
+        console.log("query", query);
         // get the data-object related to the specified type
         existingCollectionTypeData = existingCollectionTypeData.filter(element => element.name.replaceAll(" ", "").toLowerCase().includes(query));
     }
