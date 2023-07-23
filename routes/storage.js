@@ -3,10 +3,10 @@ const storageRoutes = express.Router();
 const fs = require('fs');
 const storagePath = './public/storage.json';
 const { getData, saveData } = require('../utils/common');
-const storageUrl = '/sd-db-1021/collections/';
+const storageUrl = '/sd-db-1021/collections/:type';
 
 storageRoutes.post(storageUrl, (req, res) => {
-    const { type } = req.query;
+    const { type } = req.params;
     // get existing data collection
     const existingDataCollection = getData(storagePath);
     // get the existing data set fot the specific type
@@ -28,7 +28,8 @@ storageRoutes.post(storageUrl, (req, res) => {
 })
 
 storageRoutes.get(storageUrl, (req, res) => {
-    const { quer, type } = req.query;
+    const { type } = req.params;
+    const { quer } = req.query;
     // get existing data collection// fetch the collection from the storage related to the products
     let existingDataCollection = getData(storagePath);
     // get the existing data-set fot the specific type
@@ -50,9 +51,8 @@ storageRoutes.get(storageUrl, (req, res) => {
 })
 
 // Storage update query
-storageRoutes.patch(`${storageUrl}:id`, (req, res) => {
-    const { id } = req.params;
-    const { type } = req.query;
+storageRoutes.patch(`${storageUrl}/:id`, (req, res) => {
+    const { id, type } = req.params;
     // get existing data collection
     let existingDataCollection = getData(storagePath);
     // read the file from the system
@@ -83,9 +83,8 @@ storageRoutes.patch(`${storageUrl}:id`, (req, res) => {
 })
 
 // Delete query
-storageRoutes.delete(`${storageUrl}:id`, (req, res) => {
-    const { id } = req.params;
-    const { type } = req.query;
+storageRoutes.delete(`${storageUrl}/:id`, (req, res) => {
+    const { id, type } = req.params;
     // get existing data collection
     let existingDataCollection = getData(storagePath);
     // read the file from the system
